@@ -463,7 +463,6 @@ bool AppInit2(OptionsModel& optionsModel)
     if (GetBoolArg("-salvagewallet")) {
         // Rewrite just private keys: rescan to find transactions
         SoftSetBoolArg("-rescan", true);
-        LogPrintf("Rescan Starting");
 
     }
 
@@ -863,12 +862,14 @@ bool AppInit2(OptionsModel& optionsModel)
     CBlockIndex *pindexRescan = pindexBest;
     if (GetBoolArg("-rescan"))
         pindexRescan = pindexGenesisBlock;
+	printf("Rescan Starting");
     else
     {
         CWalletDB walletdb(strWalletFileName);
         CBlockLocator locator;
         if (walletdb.ReadBestBlock(locator))
             pindexRescan = locator.GetBlockIndex();
+		printf("Rescan NOT Starting");
     }
     if (pindexBest != pindexRescan && pindexBest && pindexRescan && pindexBest->nHeight > pindexRescan->nHeight)
     {
