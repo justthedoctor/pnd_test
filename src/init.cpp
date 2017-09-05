@@ -463,7 +463,7 @@ bool AppInit2(OptionsModel& optionsModel)
     if (GetBoolArg("-salvagewallet")) {
         // Rewrite just private keys: rescan to find transactions
         SoftSetBoolArg("-rescan", true);
-
+		printf("Salvaging Wallet Triggered");
     }
 
     // ********************************************************* Step 3: parameter-to-internal-flags
@@ -604,6 +604,7 @@ bool AppInit2(OptionsModel& optionsModel)
     if (GetBoolArg("-salvagewallet"))
     {
         // Recover readable keypairs:
+		printf("Salvage Wallet 2");
         if (!CWalletDB::Recover(bitdb, strWalletFileName, true))
             return false;
     }
@@ -860,19 +861,21 @@ bool AppInit2(OptionsModel& optionsModel)
     RegisterWallet(pwalletMain);
 
     CBlockIndex *pindexRescan = pindexBest;
-    if (GetBoolArg("-rescan"))
+    if (GetBoolArg("-rescan")) {
         pindexRescan = pindexGenesisBlock;
-	printf("Rescan Starting");
+		printf("GetBoolArg rescan obtained");
+	}
     else
     {
         CWalletDB walletdb(strWalletFileName);
         CBlockLocator locator;
+		printf("GetBoolArg rescan NOT obtained";
         if (walletdb.ReadBestBlock(locator))
             pindexRescan = locator.GetBlockIndex();
-		printf("Rescan NOT Starting");
     }
     if (pindexBest != pindexRescan && pindexBest && pindexRescan && pindexBest->nHeight > pindexRescan->nHeight)
     {
+		printf("triggered if pIndexBest pindexrescan pindexbest pindexrescan pindexbest");
         uiInterface.InitMessage(_("Rescanning..."));
         printf("Rescanning last %i blocks (from block %i)...\n", pindexBest->nHeight - pindexRescan->nHeight, pindexRescan->nHeight);
         nStart = GetTimeMillis();
