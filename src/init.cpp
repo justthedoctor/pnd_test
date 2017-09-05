@@ -863,19 +863,19 @@ bool AppInit2(OptionsModel& optionsModel)
     CBlockIndex *pindexRescan = pindexBest;
     if (GetBoolArg("-rescan")) {
         pindexRescan = pindexGenesisBlock;
-		printf("GetBoolArg rescan obtained");
+		printf("GetBoolArg rescan obtained \n");
 	}
     else
     {
         CWalletDB walletdb(strWalletFileName);
         CBlockLocator locator;
-		printf("GetBoolArg rescan NOT obtained";
+		printf("GetBoolArg rescan NOT obtained \n");
         if (walletdb.ReadBestBlock(locator))
             pindexRescan = locator.GetBlockIndex();
     }
     if (pindexBest != pindexRescan && pindexBest && pindexRescan && pindexBest->nHeight > pindexRescan->nHeight)
     {
-		printf("triggered if pIndexBest pindexrescan pindexbest pindexrescan pindexbest");
+		printf("triggered if pIndexBest pindexrescan pindexbest pindexrescan pindexbest \n");
         uiInterface.InitMessage(_("Rescanning..."));
         printf("Rescanning last %i blocks (from block %i)...\n", pindexBest->nHeight - pindexRescan->nHeight, pindexRescan->nHeight);
         nStart = GetTimeMillis();
